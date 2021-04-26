@@ -1,0 +1,7 @@
+{
+    "name": "cirius-token",
+    "version": "0.0.1",
+    "devDependencies": {
+        "truffle": "^5.3.3"
+    }
+}
