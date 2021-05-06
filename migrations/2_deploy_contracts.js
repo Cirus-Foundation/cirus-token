@@ -3,7 +3,7 @@ const BN = require('bn.js');
 const CirusToken = artifacts.require("./CirusToken.sol");
 
 const NAME = "Cirus";
-const SYMBOL = "cirus";
+const SYMBOL = "CIRUS";
 const SUPPLY = new BN("250000000");
 const DECIMALS = new BN("1000000000000000000"); // 10 ^ 18
 const FINAL_OWNER = process.env.FINAL_OWNER;

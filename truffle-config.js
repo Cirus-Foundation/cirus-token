@@ -1,9 +1,10 @@
 
-const PrivateKeyProvider = require("truffle-privatekey-provider");
+const HDWalletProvider = require("@truffle/hdwallet-provider");
 const infuraRopsten = `https://ropsten.infura.io/v3/${process.env.INFURA_ID}`;
 const infuraMainnet = `https://mainnet.infura.io/v3/${process.env.INFURA_ID}`;
 
 const PRIVATE_KEY = process.env.PRIVATE_KEY;
+const ETHERSCAN_KEY = process.env.ETHERSCAN_API_KEY;
 
 module.exports = {
   /**
@@ -15,29 +16,35 @@ module.exports = {
    *
    * $ truffle test --network <network-name>
    */
-
   networks: {
     ropsten: {
-      provider: () => new PrivateKeyProvider(PRIVATE_KEY, infuraRopsten),
+      provider: () => new HDWalletProvider(PRIVATE_KEY, infuraRopsten),
       gasPrice: 50000000000, // 50 gwei,
       network_id: 3,
     },
     mainnet: {
-      provider: () => new PrivateKeyProvider(PRIVATE_KEY, infuraMainnet),
-      gasPrice: 1000000000, // 1 gwei
+      provider: () => new HDWalletProvider(PRIVATE_KEY, infuraMainnet),
+      gasPrice: 40000000000, // 40 gwei
       network_id: 1,
+      skipDryRun: true
     }
   },
-
   // Configure your compilers
   compilers: {
     solc: {
       version: "0.8.0",    // Fetch exact version from solc-bin (default: truffle's version)
     }
   },
-
   // Truffle DB is currently disabled by default; to enable it, change enabled: false to enabled: true
   db: {
     enabled: false
+  },
+  //plugin to verify token ownership for etherscan account
+  plugins: [
+    'truffle-plugin-verify'
+  ],
+  //used to verify token ownership for etherscan account
+  api_keys: {
+    etherscan: ETHERSCAN_KEY
   }
 };
